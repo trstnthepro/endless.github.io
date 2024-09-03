@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: Arial, sans-serif;
+            font-family: "Futura";
             background-color: #000000;
             display: flex;
             flex-direction: column;
@@ -103,7 +103,7 @@
             background-color: rgba(0, 0, 0, 0.9);
             display: flex;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            overflow-y: hidden; /* Prevent vertical scrolling */
             z-index: 20;
             opacity: 0;
             pointer-events: none;
@@ -117,7 +117,6 @@
 
         .art-info {
             flex: 0 0 100%;
-            scroll-snap-align: start;
             display: flex;
             padding: 40px;
             box-sizing: border-box;
@@ -224,89 +223,163 @@
         const horizontalPanel = document.getElementById('horizontalPanel');
         const closeButton = document.getElementById('closeButton');
         let currentIndex = 0;
-        let isHorizontalMode = false;
 
         const artPieces = [
-            {
-                src: 'Images/Slice 26.png',
+        {
+                src: 'Van Gogh/Slice 15.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
                 description: 'A painting that which was painted elegantly with the elegance of paint.',
-                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
+            },
+            ///
+            {
+                src: 'Van Gogh/Slice 14.png',
+                title: 'Skull with a Cigarette',
+                artist: 'Vincent Van Gogh',
+                year: '1886',
+                medium: 'Oil on Canvas',
+                description: 'Cigarettes, painting -- Netherlands -- 19th C. A.D, Skulls, Stil Life',
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 25.png',
+                src: 'Van Gogh/Slice 13.png',
                 title: 'That one',
                 artist: 'Kanye',
                 year: '1931',
                 description: 'And I always find yeah I always find something wrong.',
-                longDescription: 'This is a longer description about "That one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "That one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 24.png',
+                src: 'Van Gogh/Slice 12.png',
                 title: 'RIP',
                 artist: 'Pop Smoke',
                 year: '1665',
                 description: 'Yurrrrrrrr',
-                longDescription: 'This is a longer description about "RIP" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "RIP" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 23.png',
+                src: 'Van Gogh/Slice 11.png',
                 title: 'Munchin',
                 artist: 'Edvard Munch',
                 year: '12',
                 description: 'Yeah boy',
-                longDescription: 'This is a longer description about "Munchin" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Munchin" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 22.png',
+                src: 'Van Gogh/Slice 10.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 21.png',
+                src: 'Van Gogh/Slice 9.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 20.png',
+                src: 'Van Gogh/Slice 8.png',
                 title: 'Bebadoobe',
                 artist: 'Yeah',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 19.png',
+                src: 'Van Gogh/Slice 7.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 18.png',
+                src: 'Van Gogh/Slice 6.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Images/Slice 17.png',
+                src: 'Van Gogh/Slice 5.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
                 description: 'I think I know what to do today.',
-                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.'
+                longDescription: 'This is a longer description about "Phineas and Ferb" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
             },
+        {
+                src: 'Van Gogh/Slice 4.png',
+                title: 'This one',
+                artist: 'He who did',
+                year: '1922',
+                description: 'A painting that which was painted elegantly with the elegance of paint.',
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
+            },
+        {
+                src: 'Van Gogh/Slice 3.png',
+                title: 'This one',
+                artist: 'He who did',
+                year: '1922',
+                description: 'A painting that which was painted elegantly with the elegance of paint.',
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
+            },
+
+            {
+                src: 'Van Gogh/Slice 2.png',
+                title: 'This one',
+                artist: 'He who did',
+                year: '1922',
+                description: 'A painting that which was painted elegantly with the elegance of paint.',
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
+            },
+
+            {
+                src: 'Van Gogh/Slice 1.png',
+                title: 'This one',
+                artist: 'He who did',
+                year: '1922',
+                description: 'A painting that which was painted elegantly with the elegance of paint.',
+                longDescription: 'This is a longer description about "This one" and its artist "He who did". It can include more details about the artwork, the artist\'s style, and historical context.',
+                artistBio: 'blahblahb lah',
+                additionalInfo: 'yeah yeah yeahs'
+            },
+
         ];
 
         function resizeCanvas() {
@@ -315,7 +388,6 @@
         }
 
         function createArtPiece(piece, index) {
-            console.log('Creating art piece:', index);
             const img = new Image();
             img.crossOrigin = "Anonymous";
             img.src = piece.src;
@@ -361,10 +433,10 @@
             if (visibleImages.length === 0) return;
 
             const gradientColors = visibleImages.flatMap(img => [
-                getAverageColor(img, 0, 0, img.width, 10),                    // Top
-                getAverageColor(img, img.width - 10, 0, 10, img.height),      // Right
-                getAverageColor(img, 0, img.height - 10, img.width, 10),      // Bottom
-                getAverageColor(img, 0, 0, 10, img.height)                    // Left
+                getAverageColor(img, 0, 0, img.width, 10),
+                getAverageColor(img, img.width - 10, 0, 10, img.height),
+                getAverageColor(img, 0, img.height - 10, img.width, 10),
+                getAverageColor(img, 0, 0, 10, img.height)
             ]);
 
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -384,45 +456,53 @@
         }
 
         function openHorizontalScroll(clickedIndex) {
-            console.log('Opening horizontal scroll for index:', clickedIndex);
-            horizontalPanel.innerHTML = '';
-            const piece = artPieces[clickedIndex];
+            horizontalPanel.innerHTML = ''; // Clear previous content
 
-            const artInfo = document.createElement('div');
-            artInfo.classList.add('art-info');
+            const totalSlides = 3; // Number of slides per content loop
+            let currentSlideIndex = -1; // Start with -1 to display the clicked piece's description first
 
-            const artInfoContent = document.createElement('div');
-            artInfoContent.classList.add('art-info-content');
+            function addContentToPanel(content) {
+                const artInfo = document.createElement('div');
+                artInfo.classList.add('art-info');
 
-            const title = document.createElement('h2');
-            title.textContent = piece.title;
-            artInfoContent.appendChild(title);
+                const artInfoContent = document.createElement('div');
+                artInfoContent.classList.add('art-info-content');
+                
+                artInfoContent.innerHTML = content;
 
-            const artist = document.createElement('p');
-            artist.textContent = `Artist: ${piece.artist}`;
-            artInfoContent.appendChild(artist);
+                artInfo.appendChild(artInfoContent);
+                horizontalPanel.appendChild(artInfo);
+            }
 
-            const year = document.createElement('p');
-            year.textContent = `Year: ${piece.year}`;
-            artInfoContent.appendChild(year);
+            function getNextContent() {
+                const piece = artPieces[clickedIndex];
+                currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
 
-            const description = document.createElement('p');
-            description.textContent = piece.longDescription;
-            artInfoContent.appendChild(description);
+                if (currentSlideIndex === 0) {
+                    return `<h2>${piece.title}</h2><p>Artist: ${piece.artist}</p><p>Year: ${piece.year}</p><p>${piece.longDescription}</p>`;
+                } else if (currentSlideIndex === 1) {
+                    return `<h2>${piece.artist} - Biography</h2><p>${piece.artistBio}</p>`;
+                } else if (currentSlideIndex === 2) {
+                    return `<h2>Famous Works & Contributions</h2><p>${piece.additionalInfo}</p>`;
+                }
+            }
 
-            const artInfoImage = document.createElement('div');
-            artInfoImage.classList.add('art-info-image');
+            function populatePanel() {
+                for (let i = 0; i < totalSlides; i++) {
+                    addContentToPanel(getNextContent());
+                }
+            }
 
-            const img = new Image();
-            img.src = piece.src;
-            artInfoImage.appendChild(img);
-
-            artInfo.appendChild(artInfoContent);
-            artInfo.appendChild(artInfoImage);
-
-            horizontalPanel.appendChild(artInfo);
+            horizontalPanel.scrollLeft = 0;
+            populatePanel();
             horizontalPanel.classList.add('active');
             closeButton.style.display = 'block';
+
+            horizontalPanel.addEventListener('scroll', function() {
+                if (horizontalPanel.scrollLeft + horizontalPanel.clientWidth >= horizontalPanel.scrollWidth - 50) {
+                    populatePanel(); // Loop the content by adding new slides when reaching the end
+                }
+            });
         }
 
         closeButton.addEventListener('click', () => {
@@ -430,17 +510,12 @@
             closeButton.style.display = 'none';
         });
 
-     
         resizeCanvas();
         loadMoreArt();
-
-       
         window.addEventListener('resize', resizeCanvas);
         gallery.addEventListener('scroll', handleScroll);
-
         updateBackground();
     });
-
     </script>
 </body>
 </html>
