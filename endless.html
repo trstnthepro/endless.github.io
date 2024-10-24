@@ -103,7 +103,7 @@
             background-color: rgba(0, 0, 0, 0.9);
             display: flex;
             overflow-x: auto;
-            overflow-y: hidden; /* Prevent vertical scrolling */
+            overflow-y: hidden;
             z-index: 20;
             opacity: 0;
             pointer-events: none;
@@ -226,7 +226,7 @@
 
         const artPieces = [
         {
-                src: 'Van Gogh/Slice 15.png',
+                src: 'Images/Van Gogh/1SelfPortrait.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
@@ -235,9 +235,9 @@
                 artistBio: 'Vincent van Gogh (born March 30, 1853, Zundert, Netherlands—died July 29, 1890, Auvers-sur-Oise, near Paris, France) was a Dutch painter, generally considered the greatest after Rembrandt van Rijn, and one of the greatest of the Post-Impressionists. The striking color, emphatic brushwork, and contoured forms of his work powerfully influenced the current of Expressionism in modern art. Van Gogh’s art became astoundingly popular after his death, especially in the late 20th century, when his work sold for record-breaking sums at auctions around the world and was featured in blockbuster touring exhibitions. In part because of his extensive published letters, van Gogh has also been mythologized in the popular imagination as the quintessential tortured artist.',
                 additionalInfo: 'yeah yeah yeahs'
             },
-            ///
+
             {
-                src: 'Van Gogh/Slice 14.png',
+                src: 'Images/Van Gogh/2SkullWithCig.png',
                 title: 'Skull with a Cigarette',
                 artist: 'Vincent Van Gogh',
                 year: '1886',
@@ -248,7 +248,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 13.png',
+                src: 'Images/Van Gogh/3StarryNight.png',
                 title: 'That one',
                 artist: 'Kanye',
                 year: '1931',
@@ -258,7 +258,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 12.png',
+                src: 'Images/Van Gogh/4StarryNightSeptember.png',
                 title: 'RIP',
                 artist: 'Pop Smoke',
                 year: '1665',
@@ -268,7 +268,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 11.png',
+                src: 'Images/Van Gogh/5TwoPoplarsAlpiles.png',
                 title: 'Munchin',
                 artist: 'Edvard Munch',
                 year: '12',
@@ -278,7 +278,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 10.png',
+                src: 'Images/Van Gogh/6VineyardsAuvers.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
@@ -288,7 +288,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 9.png',
+                src: 'Images/Van Gogh/7StairwayAuvers.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
@@ -298,7 +298,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 8.png',
+                src: 'Images/Van Gogh/8DutchIrises.png',
                 title: 'Bebadoobe',
                 artist: 'Yeah',
                 year: '1486',
@@ -308,7 +308,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 7.png',
+                src: 'Images/Van Gogh/9MarguetteGatchetGarden.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
@@ -318,7 +318,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 6.png',
+                src: 'Images/Van Gogh/10FirstSteps.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
@@ -328,7 +328,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
             {
-                src: 'Van Gogh/Slice 5.png',
+                src: 'Images/Van Gogh/11PrisonCourtyard.png',
                 title: 'Phineas and Ferb',
                 artist: 'Candice',
                 year: '1486',
@@ -338,7 +338,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
         {
-                src: 'Van Gogh/Slice 4.png',
+                src: 'Images/Van Gogh/12TerraceCafeNight.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
@@ -348,7 +348,7 @@
                 additionalInfo: 'yeah yeah yeahs'
             },
         {
-                src: 'Van Gogh/Slice 3.png',
+                src: 'Images/Van Gogh/13RoadwayUnderpass.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
@@ -359,7 +359,7 @@
             },
 
             {
-                src: 'Van Gogh/Slice 2.png',
+                src: 'Images/Van Gogh/14LandscapeFigures.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
@@ -370,7 +370,7 @@
             },
 
             {
-                src: 'Van Gogh/Slice 1.png',
+                src: 'Images/Van Gogh/Lecafade.png',
                 title: 'This one',
                 artist: 'He who did',
                 year: '1922',
@@ -499,7 +499,7 @@
 
             horizontalPanel.addEventListener('scroll', function() {
                 if (horizontalPanel.scrollLeft + horizontalPanel.clientWidth >= horizontalPanel.scrollWidth - 50) {
-                    populatePanel(); // Loop the content by adding new slides when reaching the end
+                    populatePanel(); 
                 }
             });
         }
