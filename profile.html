@@ -30,12 +30,16 @@
         }
 
         .logo {
-            color: white;
             font-size: 1.5em;
             font-weight: bold;
             text-align: center;
             align-content: center;
         }
+        .logo a{
+            text-decoration: none;
+            color: white;
+        }
+
 
         .gallery-container {
             flex: 1;
@@ -210,6 +214,12 @@
             top: 25%;
             width: 30px;
         }
+        .about img{
+            position: absolute;
+            right: 90px;
+            top: 28%;
+            width: 25px;
+        }
         #userProfile img {
             width: 200px;
             height: 200px;
@@ -260,12 +270,18 @@
 <body>
     <div class="header">
         <div class="logo">
-            <a href = "endless.html" style = "color: white; text-decoration: none">ENDLESS.AI</a></div>
-        <div class="profile">
-            <a href="profile.html">
-                <img src="ui_images/profile_image.png" alt="Go to Profile"> 
-            </a>
+        <a href = "endless.html">ENDLESS.AI </a> 
         </div>
+        <div class = "profile">
+        <a href = "profile.html">
+            <img src = "ui_images/profile_image.png" alt = "Profile"> 
+        </a>
+        </div>
+        <div class = "about">
+        <a href = "about.html">
+            <img src = "ui_images/about.webp" alt = "About"> 
+        </a>
+            </div>
     </div>
 
     <h2 style = "color: white; text-align: center">Profile</h2>
