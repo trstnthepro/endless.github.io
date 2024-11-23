@@ -8,220 +8,141 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
-            font-family: "Futura";
+            min-height: 100vh;
+            font-family: "Futura", system-ui, -apple-system, sans-serif;
             background-color: #000000;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto
+            color: white;
         }
 
         .header {
             width: 100%;
-            padding: 20px;
-            background-color: #000000;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 10;
+            backdrop-filter: blur(8px);
         }
 
         .logo {
-            font-size: 1.5em;
+            font-size: 1.5rem;
             font-weight: bold;
-            text-align: center;
-            align-content: center;
         }
-        .logo a{
+
+        .logo a {
             text-decoration: none;
             color: white;
         }
 
-        .gallery-container {
-            flex: 1;
+        .nav-icons {
             display: flex;
-            justify-content: center;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            padding: 0;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-icons img {
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.2s;
+        }
+
+        .nav-icons a:hover img {
+            opacity: 0.8;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-intro {
+            margin-bottom: 4rem;
+        }
+
+        .section-intro h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .section-intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        #statement {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        #statement h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #statement p {
+            color: #e0e0e0;
+            line-height: 1.6;
+            font-size: 1.1rem;
         }
 
         #gallery {
-            width: 80%;
-            height: 100%;
-            overflow-y: scroll;
+            height: 80vh;
+            overflow-y: auto;
             scroll-behavior: smooth;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            padding-bottom: 100px;
+            padding: 2rem;
         }
 
         #gallery::-webkit-scrollbar {
             display: none;
         }
 
-        .fade-overlay-top, .fade-overlay-bottom {
-            position: fixed;
-            left: 0;
-            right: 0;
-            height: 100px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .fade-overlay-top {
-            top: 60px;
-            background: linear-gradient(to bottom, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0) 100%);
-        }
-
-        .fade-overlay-bottom {
-            bottom: 0;
-            background: linear-gradient(to top, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0) 100%);
-        }
-
-        .art-piece {
-            display: block;
-            width: 100%;
-            height: auto;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            transition: transform 0.5s ease;
-        }
-
-        .horizontal-scroll-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+        .section {
             display: flex;
-            overflow-x: auto;
-            overflow-y: hidden; /* Prevent vertical scrolling */
-            z-index: 20;
+            gap: 4rem;
+            padding: 3rem 0;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            margin-bottom: 3rem;
         }
 
-        .horizontal-scroll-panel.active {
+        .section-visible {
             opacity: 1;
-            pointer-events: auto;
+            transform: translateY(0);
         }
 
-        .art-info {
-            flex: 0 0 100%;
-            display: flex;
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .art-info-content {
-            width: 60%;
-            color: #ffffff;
-            padding-right: 40px;
-        }
-
-        .art-info-image {
-            width: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .art-info-image img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-        }
-
-        .art-info h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .art-info p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-
-        .close-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
-            color: #ffffff;
-            cursor: pointer;
-            z-index: 30;
-            display: none;
-        }
-
-        .fade-overlay-left, .fade-overlay-right {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            pointer-events: none;
-            z-index: 25;
-        }
-
-        .fade-overlay-left {
-            left: 0;
-            background: linear-gradient(to right, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0) 100%);
-        }
-
-        .fade-overlay-right {
-            right: 0;
-            background: linear-gradient(to left, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0) 100%);
-        }
-
-        #backgroundCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        body{
-            color: white;;
-        }
-        #userProfile {
-            width: 80%;
-            margin-top: 5%;
-            margin-left: 10%;
-            display: flex;
-            padding: 2%;
-            
-        }
-        .profile img {
-            position: absolute;
-            right: 50px;
-            top: 25%;
-            width: 30px;
-        }
-        .about img{
-            position: absolute;
-            right: 90px;
-            top: 28%;
-            width: 25px;
-        }
-        *.text-column {
+        .text-column {
             flex: 1;
-            margin-left: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-column h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .text-column p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
         }
 
         .image-column {
@@ -229,166 +150,151 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: red;
-            margin-right: 20%;
         }
 
         .image-column img {
             max-width: 100%;
             height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .section {
-            display: flex;
-            height: 40vh;
-            opacity: 0;
-            visibility: hidden;
-            color: white;
-            width: 70%;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15%;
-            font-size: 14pt;
-            height: 30vh;
-            margin-bottom: 12%;
-        }
-        .section-visible {
-            opacity: 1;
-            transform: none;
-            visibility: visible;
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column;
+                gap: 2rem;
             }
-        #statement{
-            text-align: center;
-            margin-left: 25%;
-            margin-top: 8%;
-            margin-bottom: 5%;
-            font-size: 12pt; 
-            width: 50%;
-            color: lightgray;
-        }
-        #gallery{
-            width: 100%;
-            height: 80vh; /* Set a height to allow scrolling */
-            overflow-y: auto; /* Enable vertical scrolling */
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding-bottom: 100px;
-        }
-        #p1{
 
+            .content {
+                padding: 1rem;
+            }
 
-        }
-        #p2{
-
-        }
-        #p3{
-
-            
+            #statement {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="logo">
-            <a href = "endless.html">ENDLESS.AI </a> 
+            <a href="endless.html">ENDLESS.AI</a>
         </div>
-        <div class = "profile">
-        <a href = "profile.html">
-            <img src = "ui_images/profile_image.png" alt = "Profile"> 
-        </a>
-        </div>
-        <div class = "about">
-        <a href = "about.html">
-            <img src = "ui_images/about.webp" alt = "About"> 
-        </a>
-            </div>
-    </div>
-    <div id = "statement">
-        <h3 style = "color: white;"> Mission Statement </h3>
-        We intend to tell stories, profiling historical and contemporary artists by adapting their prolific works while adding a narrative about their creative process and message. 
-        We strive to foster an environment to ethically appreciate pure artistic expression and AI creativity, stimulated by one's curiosity to discover.
-    </div>
-
-    <h3 style = "color: white;text-align: center;"> What is this? </h3>
-    <div id = "gallery">
-        <div id="p1" class="section">
-            <div class="column text-column">
-                <h2> Big Text </h2>
-                <p> little text</p>
-            </div>
-            <div class="column image-column">
-                <img src="ui_images/Slice 2.png" alt="Image for Section 1">
-            </div>
-        </div>
-        <div id="p2" class="section">
-            <div class="column text-column">
-                <h2> Big Text </h2>
-                <p> little text</p>
-            </div>
-            <div class="column image-column">
-                <img src="ui_images/Slice 1.png" alt="Image for Section 2">
-            </div>
-        </div>
-        <div id="p3" class="section">
-            <div class="column text-column">
-                <h2> Big Text </h2>
-                <p> little text</p>
-            </div>
-            <div class="column image-column">
-                <img src="ui_images/Slice 1.png" alt="Image for Section 3">
-            </div>
+        <div class="nav-icons">
+            <a href="about.html">
+                <img src="ui_images/about.webp" alt="About">
+            </a>
+            <a href="profile.html">
+                <img src="ui_images/profile_image.png" alt="Profile">
+            </a>
         </div>
     </div>
-</body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll('.section');
-    const gallery = document.getElementById('gallery');
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('section-visible');
-            } else {
-                entry.target.classList.remove('section-visible');
-            }
-        });
-    }, { threshold: 0.1 });
 
-    sections.forEach(section => observer.observe(section));
+    
+    <div class="content">
+        <div class="section-intro">
+            <h3>What is ENDLESS?</h3>
+            <p>
+                Endless is a publication that seeks to address the largest concern in the generative Artificial Intelligence space, which is the non-consensual training of intellectual property when developing these models. Currently, there are numerous lawsuits directed at companies such as Open AI, Midjourney, and Runway ML addressing creatives concerns regarding their IP (artworks and other novel creations) being used in the training of the sophisticated AI models, enabling others to mimic their artistic aesthetic or nuanced process.
+            </p>
+            <p>
+                The Endless publication is a suggestive demonstration to enable the ethical and transparent use of these generative AI models to credit intellectual property through an innovative new form of media. Over the past six months, the research team has iterated a novel method to adapt various forms of media in a continuously growing (on the y-axis) publication that seeks to profile creatives in various industries.
+            </p>
+            <p>
+                Initially, the publication will solely profile artists/artworks that are in the public domain to stay clear of any copyright concerns or trademark infringements. Following the initial disclosure of the publication and once Endless has gained an appropriate level of journalistic integrity, it is our intent to collaborate with contemporary artists and reach a consensual agreement (between Endless and the artist) to adapt artworks and profile artists who are not in the public domain.
+            </p>
+        </div>
 
-    const cloneSections = () => {
-        sections.forEach(section => {
-            const clone = section.cloneNode(true);
-            gallery.appendChild(clone);
-            observer.observe(clone);
-        });
-    };
+        <div id="statement">
+            <h3>Mission Statement</h3>
+            <p>
+                Welcome to Endless. Our mission is to explore the implications of AI in the creative industry, addressing concerns related to infringed intellectual property and transparency when deploying such models.
+            </p>
+        </div>
 
-    const handleScroll = () => {
-        // Check if scrolling down
-        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 50) {
+        <h3 style="text-align: center;">Gallery</h3>
+        <div id="gallery">
+            <div id="p1" class="section">
+                <div class="text-column">
+                    <h2>AI's Creative Potential</h2>
+                    <p>
+                        Through the embedding of sources in an endless demonstration, we aim to highlight the potential of AI as a tool for artistic expression while mitigating negative concerns surrounding AI-generated art.
+                    </p>
+                </div>
+                <div class="image-column">
+                    <img src="ui_images/Slice 2.png" alt="Image for Section 1">
+                </div>
+            </div>
+            <div id="p2" class="section">
+                <div class="text-column">
+                    <h2>Art and Storytelling</h2>
+                    <p>
+                        We intend to tell stories, profiling historical and contemporary artists by adapting their prolific works while adding a narrative about their creative process and message. We strive to foster an environment to ethically appreciate pure artistic expression and AI creativity, stimulated by one's curiosity to discover.
+                    </p>
+                </div>
+                
+                <div class="image-column">
+                    <img src="ui_images/Slice 1.png" alt="Image for Section 2">
+                </div>
+            </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('.section');
+            const gallery = document.getElementById('gallery');
+            let isCloning = false;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                    } else {
+                        entry.target.classList.remove('section-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+
+            const cloneSections = () => {
+                if (isCloning) return;
+                isCloning = true;
+
+                sections.forEach(section => {
+                    const clone = section.cloneNode(true);
+                    gallery.appendChild(clone);
+                    observer.observe(clone);
+                });
+
+                isCloning = false;
+            };
+
+            const handleScroll = () => {
+                if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 100) {
+                    cloneSections();
+                    gallery.scrollTop -= sections.length * (sections[0].offsetHeight / 2);
+                }
+
+                if (gallery.scrollTop <= 50) {
+                    const firstSection = gallery.firstElementChild;
+                    if (firstSection) {
+                        const clone = firstSection.cloneNode(true);
+                        gallery.insertBefore(clone, firstSection);
+                        observer.observe(clone);
+                        gallery.scrollTop += sections[0].offsetHeight;
+                    }
+                }
+            };
+
+            gallery.addEventListener('scroll', handleScroll);
             cloneSections();
-            gallery.scrollTop -= sections.length * (sections[0].offsetHeight);
-        }
-
-        // Check if scrolling up
-        if (gallery.scrollTop <= 50) {
-            const firstSection = gallery.firstElementChild;
-            if (firstSection) {
-                const clone = firstSection.cloneNode(true);
-                gallery.insertBefore(clone, firstSection);
-                observer.observe(clone);
-                gallery.scrollTop += sections[0].offsetHeight; // Adjust scroll position
-            }
-        }
-    };
-
-    gallery.addEventListener('scroll', handleScroll);
-
-    // Initially clone sections to create a seamless experience
-    cloneSections();
-});
-</script>
+        });
+    </script>
+</body>
 </html>
