@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <name>Endless Art Gallery</name>
+    <version>1.0</version>
+    <year>2024</year>
+
+    <description>
+        An infinite scrolling art gallery featuring historical artworks with interactive viewing capabilities. Endless is a publication that seeks to address the largest concern in the generative Artificial Intelligence space, which is the non-consensual training of intellectual property when developing these models. Currently, there are numerous lawsuits directed at companies such as Open AI, Midjorueny, and Runway ML addressing creatives concerns regarding their IP (artworks and other novel creations) being used in the training of the sophisticated AI models, enabling others to mimic their artistic aesthetic or nuanced process.
+
+        The Endless publication is a suggestive demonstration to enable the ethical and transparent use of these generative AI models to credit intellectual property through an innovative new form of media. Over the past six months, the research team has iterated a novel method to adapt various forms of media in a continuously growing (on the y-axis) publication that seeks to profile creatives in various industries.
+
+        Initially, the publication will solely profile artists/artworks that are in the public domain to stay clear of any copyright concerns or trademark infringements. Following the initial disclosure of the publication and once Endless has gained an appropriate level of journalistic integrity, it is our intent to collaborate with contemporary artists and reach a consensual agreement (between Endless and the artist) to adapt artworks and profile artists who are not in the public domain.
+    </description>
+
+    <file_structure>
+        <base_path>acad276/Endless/endless.github.io-main-build3</base_path>
+
+        <directories>
+            <directory name="Images">
+                <artist_folder name="katushika_hokusai">
+                    <piece_folder number="0101">
+                        <file>WEB 0101.png</file>
+                        <file>Hou_0101!_V copy 9.png</file>
+                    </piece_folder>
+                    <!-- Additional piece folders -->
+                </artist_folder>
+
+                <artist_folder name="claude_joseph_vernet">
+                    <piece_folder number="0201">
+                        <file>WEB 0201.png</file>
+                        <file>VERNET_0202 copy 5.png</file>
+                    </piece_folder>
+                    <!-- Additional piece folders -->
+                </artist_folder>
+            </directory>
+
+            <directory name="ui_images">
+                <file>Favorite.png</file>
+                <file>Download.png</file>
+                <file>Bookmark.png</file>
+                <file>Menu.png</file>
+                <file>Profile.png</file>
+                <file>Search.png</file>
+            </directory>
+        </directories>
+
+        <database>
+            <table name="artworks">
+                <columns>
+                    <column>piece_id (PRIMARY KEY)</column>
+                    <column>piece_name</column>
+                    <column>piece_year</column>
+                    <column>piece_description</column>
+                    <column>medium_type</column>
+                    <column>web_filename</column>
+                    <column>full_filename</column>
+                    <column>person_id (FOREIGN KEY)</column>
+                </columns>
+            </table>
+
+            <table name="people">
+                <columns>
+                    <column>PID (PRIMARY KEY)</column>
+                    <column>author</column>
+                    <column>fname</column>
+                    <column>lname</column>
+                    <column>username</column>
+                    <column>pw</column>
+                    <column>file_path_name</column>
+                    <column>email</column>
+                </columns>
+            </table>
+        </database>
+
+        <core_files>
+            <file name="endless.php">Main gallery page with infinite scroll</file>
+            <file name="profile.php">User profile and artwork upload interface</file>
+            <file name="search.php">Artwork search functionality</file>
+            <file name="config.php">Database configuration</file>
+            <file name="endless.css">Gallery styling</file>
+        </core_files>
+    </file_structure>
+
+    <features>
+        <feature>Infinite scroll gallery</feature>
+        <feature>Interactive artwork viewing</feature>
+        <feature>Web-optimized images for smooth scrolling</feature>
+        <feature>Full-resolution artwork viewing</feature>
+        <feature>Artist/User profiles</feature>
+        <feature>Search functionality</feature>
+        <feature>Artwork information display</feature>
+    </features>
+
+    <notes>
+        <note>Each artwork has two versions: a web-optimized version for scrolling and a full-resolution version for detailed viewing</note>
+        <note>File structure is organized by artist and piece number</note>
+        <note>Database supports both historical artists and user uploads</note>
+    </notes>
+</project>
