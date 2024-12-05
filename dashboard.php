@@ -48,33 +48,7 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
     <link rel="stylesheet" href="endless.css">
 </head>
 <body>
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
 
-    .profile-container {
-        display: flex;
-        flex-direction: column;
-        margin: 20px auto;
-        padding: 20px;
-        max-width: 1200px;
-        overflow: visible;
-    }
-
-    #favorites {
-        overflow-y: auto;
-        max-height: 400px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-</style>
 <header class="header">
     <button class="menu-button">
         <span class="hamburger-icon"></span>
