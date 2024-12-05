@@ -1,3 +1,17 @@
+<?php
+// Start the session to track user login status
+session_start();
+
+// Function to check if the user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']);
+}
+
+// Define the redirect URLs
+$loginPage = 'login.php';
+$dashboardPage = 'dashboard.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
