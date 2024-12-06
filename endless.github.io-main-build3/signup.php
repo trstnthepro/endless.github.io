@@ -79,135 +79,6 @@ $pdo->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Endless Art Gallery - Sign Up</title>
     <link rel="stylesheet" href="endless.css">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: "Futura";
-            background-color: #000000;
-            color: white;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            position: fixed; /* Keeps the header at the top */
-            width: 100%; /* Ensures it spans the entire width */
-            top: 0; /* Aligns it to the top of the viewport */
-            background-color: #000; /* Match header background to avoid gaps */
-            z-index: 1000; /* Ensures it stays above other content */
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); /* Optional: Adds a shadow for clarity */
-        }
-
-        .form-header {
-            margin-top:0px;
-        }
-
-        .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            align-content: center;
-        }
-
-        .form-container {
-            margin-top: 100px;
-            padding: 20px;
-            width: 50%;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        input {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 1em;
-            border-radius: 5px;
-            border: 1px solid #555;
-            background-color: #333;
-            color: white;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: white;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: Futura, sans-serif;
-            transition: darkgrey 350ms ease-in;
-        }
-
-        button[type="submit"] {
-            font-size: 1.2em;
-            background: white;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-family: Futura, sans-serif;
-            transition: darkgrey 150ms ease-in;
-        }
-
-        button[type="submit"]:hover {
-            background: darkgrey;
-        }
-
-        button:hover {
-            background: darkgrey;
-        }
-
-        .error-messages {
-            color: red;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .name-container {
-            display: flex;                /* Use flexbox to align inputs horizontally */
-            gap: 20px;                    /* Add space between the inputs */
-        }
-
-        .input-group {
-            flex: 1;                      /* Allow each input group to take equal space */
-            display: flex;
-            flex-direction: column;       /* Keep the label above the input */
-        }
-
-        .input-group label {
-            margin-bottom: 5px;           /* Add space between the label and input */
-        }
-
-        .input-group input {
-            width: 100%;                  /* Ensure the input fills the container */
-            box-sizing: border-box;       /* Include padding and border in the width */
-        }
-
-    </style>
 </head>
 <body>
 <div class="header">
@@ -223,6 +94,27 @@ $pdo->close();
     <!-- Profile Button -->
     <a href="#" class="profile-icon" id="profileButton"></a>
 </header>
+
+<div class="menu-overlay">
+    <button class="menu-close">
+        <img src="ui_images/menuOpen.png" alt="Close menu">
+    </button>
+    <nav class="menu-items">
+        <div class="menu-item">
+            <span class="menu-number">01</span>
+            <a href="#" class="menu-link active">Home</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">02</span>
+            <a href="#" class="menu-link">Favorites</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">03</span>
+            <a href="#" class="menu-link">Moodboards</a>
+        </div>
+    </nav>
+</div>
+
 <div class="form-container">
     <?php if (!empty($errors)): ?>
         <div class="error-messages">
@@ -237,36 +129,97 @@ $pdo->close();
     <form action="signup.php" method="post">
         <h1 class="form-header">Sign Up</h1>
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+
+        <input type="text" id="username" name="username" placeholder="Username:" required>
 
         <div class="name-container">
             <div class="input-group">
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" required>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name:" required>
+
             </div>
             <div class="input-group">
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name:" required>
+
             </div>
         </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" placeholder="Email:" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Password:" required>
 
-        <label for="confirm_password">Confirm Password:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password:" required>
 
         <div class="button-group">
-            <button type="submit">Sign Up</button>
-            <a href="login.php">
-                <button type="button">Login</button>
-            </a>
+            <button type="submit" class="signup-button">Sign Up</button>
         </div>
+        <hr style="margin: 20px; border-color: grey;">
+
+        <a href="login.php">
+            <div class="button-group">
+                <button type="button" class="login-button">Login</button>
+            </div>
+        </a>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.querySelector('.menu-button');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const menuClose = document.querySelector('.menu-close');
+
+        // Menu functionality
+        menuButton.addEventListener('click', function() {
+            menuOverlay.classList.add('active');
+        });
+
+        menuClose.addEventListener('click', function() {
+            menuOverlay.classList.remove('active');
+        });
+
+        // Close button handler for horizontal panel
+        closeButton.addEventListener('click', function() {
+            horizontalPanel.classList.remove('active');
+            closeButton.style.display = 'none';
+        });
+
+        // Close horizontal panel when clicking outside
+        horizontalPanel.addEventListener('click', function(e) {
+            if (e.target === horizontalPanel) {
+                horizontalPanel.classList.remove('active');
+                closeButton.style.display = 'none';
+            }
+        });
+
+        // Handle keyboard events (ESC to close panel)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && horizontalPanel.classList.contains('active')) {
+                horizontalPanel.classList.remove('active');
+                closeButton.style.display = 'none';
+            }
+        });
+
+        // Handle image action buttons (Favorite, Download, Bookmark)
+        gallery.addEventListener('click', function(e) {
+            const actionIcon = e.target.closest('.action-icon');
+            if (actionIcon) {
+                e.stopPropagation(); // Prevent opening the horizontal panel
+                const container = actionIcon.closest('.art-piece-container');
+                const pieceId = container.dataset.id;
+
+                if (actionIcon.classList.contains('favorite-icon')) {
+                    // Handle favorite action
+                    console.log('Favorite clicked for piece:', pieceId);
+                } else if (actionIcon.classList.contains('share-icon')) {
+                    // Handle download action
+                    console.log('Download clicked for piece:', pieceId);
+                } else if (actionIcon.classList.contains('info-icon')) {
+                    // Handle bookmark action
+                    console.log('Bookmark clicked for piece:', pieceId);
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
