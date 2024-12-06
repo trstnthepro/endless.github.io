@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Art Gallery</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            font-family: "Futura";
+            overflow-y: auto;
+        }
+        h2 {
+            margin-block-start: 0px;
+        }
+        .header {
+            width: 100%;
+            padding: 20px;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            align-content: center;
+        }
+        .logo a{
+            text-decoration: none;
+            color: white;
+        }
+        .profile img {
+            position: absolute;
+            right: 50px;
+            top: 25%;
+            width: 30px;
+        }
+        .about img{
+            position: absolute;
+            right: 90px;
+            top: 28%;
+            width: 25px;
+        }
+        #userProfile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%; 
+            overflow: hidden;
+            border: 3px solid white;
+        }
+        .fade-overlay-top, .fade-overlay-bottom {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 100px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .fade-overlay-top {
+            top: 60px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .fade-overlay-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+        
+        #gallery {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: scroll;
+            padding-top: 5%;
+            padding-right: 10%;
+            padding-left: 10%;
+        }
+        .art-piece-container {
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+        }
+
+        .art-piece-container-reversed {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .art-piece {
+            width: 40%;
+            cursor: pointer;
+            /* padding-left: 50%;*/
+            transition: transform 0.3s ease;
+            
+        }
+
+        .art-piece:hover {
+            transform: scale(1.02);
+        }
+
+        .art-piece-paragraph h2 {
+            margin-bottom: 10px;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .art-piece-paragraph p {
+            margin: 0;
+            color: #ccc;
+        }
+        .art-piece-paragraph{
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            width: 30%;
+            flex: 1;
+            color: #ccc;
+            font-size: 1em;
+        }
+        #backgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .footer {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to top, black, transparent);
+            transition: transform 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 50;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+        }
+
+
+        .footer-column {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+
+        .footer-column h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+
+        .footer-column input,
+        .footer-column button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+        <a href = "endless.html">ENDLESS.AI </a> 
+        </div>
+        <div class = "profile">
+        <a href = "profile.html">
+            <img src = "ui_images/profile_image.png" alt = "Profile"> 
+        </a>
+        </div>
+        <div class = "about">
+        <a href = "about2.html">
+            <img src = "ui_images/about.webp" alt = "About"> 
+        </a>
+            </div>
+    </div>
+   
+    <div id="gallery"></div>
+    <canvas id="backgroundCanvas"></canvas>
+        
+        
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <input type="email" placeholder="Enter your email">
+                <button>Subscribe</button>
+            </div>
+            <div class="footer-column">
+                <h3>Founders</h3>
+                <p> blah blah blah </p>
+                <p> blah blah blah</p>
+                <a href="about2.html"><em>About Us</em></a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                <li>Email: twilcher@usc.edu</li>
+                <li>Phone: blah blah blah</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('gallery');
+            const canvas = document.getElementById('backgroundCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const artPieces = [
+                {
+                    src: 'ui_images/Slice 15.png',
+                    title: 'What is Endless?',
+                    artist: 'He who did',
+                    year: '1922',
+                    description: 'Endless is a publication that seeks to address the largest concern in the generative Artificial Intelligence space, which is the non-consensual training of intellectual property when developing these models. Currently, there are numerous lawsuits directed at companies such as Open AI, Midjorueny, and Runway ML addressing creatives concerns regarding their IP (artworks and other novel creations) being used in the training of the sophisticated AI models, enabling others to mimic their artistic aesthetic or nuanced process.'
+                
+                },
+                {
+                    src: 'ui_images/Slice 14.png',
+                    artist: 'Vincent Van Gogh',
+                    year: '1886',
+                    description: 'The Endless publication is a suggestive demonstration to enable the ethical and transparent use of these generative AI models to credit intellectual property through an innovative new form of media. Over the past six months, the research team has iterated a novel method to adapt various forms of media in a continuously growing (on the y-axis) publication that seeks to profile creatives in various industries. Initially, the publication will solely profile artists/artworks that are in the public domain to stay clear of any copyright concerns or trademark infringements. Following the initial disclosure of the publication and once Endless has gained an appropriate level of journalistic integrity, it is our intent to collaborate with contemporary artists and reach a consensual agreement (between Endless and the artist) to adapt artworks and profile artists who are not in the public domain'
+                },
+                {
+                    src: 'ui_images/Slice 13.png',
+                    title: 'Mission Statement',
+                    artist: 'Kanye',
+                    year: '1931',
+                    description: 'Our mission is to explore the implications of AI in the creative industry, addressing concerns related to infringed intellectual property and transparency when deploying such models. Through the embedding of sources in an endless demonstration, we aim to highlight the potential of AI as a tool for artistic expression while mitigating negative concerns surrounding AI-generated art.'
+                },
+                {
+                    src: 'ui_images/Slice 12.png',
+                    title: 'Welcome to Endless',
+                    artist: 'Kanye',
+                    year: '1931',
+                    description: "We intend to tell stories, profiling historical and contemporary artists by adapting their prolific works while adding a narrative about their creative process and message. We strive to foster an environment to ethically appreciate pure artistic expression and AI creativity, stimulated by one's curiosity to discover. We hope to educate, act ethically, inspire, ask questions, and learn from one another while we shape a world where the preservation of intellectual property and transparency coexist in the creative field and within society as a whole as we experience this inevitable yet exciting change."
+                },
+
+            ];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function createArtPiece(piece, reverse) {
+                const container = document.createElement('div');
+                if (reverse) {
+                    container.className = 'art-piece-container-reversed';
+
+                } else {
+                    container.className = 'art-piece-container';
+
+                }
+
+                const img = new Image();
+                img.src = piece.src;
+                img.className = 'art-piece';
+               
+
+                const descriptionContainer = document.createElement('div');
+                descriptionContainer.className = 'art-piece-paragraph';
+
+                const title = document.createElement('h2');
+                title.textContent = piece.title;
+
+                const paragraph = document.createElement('p');
+                paragraph.textContent = piece.description;
+
+                descriptionContainer.appendChild(title);
+                descriptionContainer.appendChild(paragraph);
+
+                container.appendChild(img);
+                container.appendChild(descriptionContainer);
+
+                
+                img.addEventListener('load', function() {
+                    const averageColor = getAverageColor(img, 0, 0, img.width, img.height);
+                    ctx.fillStyle = averageColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                });
+
+                return container;
+            }
+
+            function getAverageColor(img, x, y, width, height) {
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = width;
+                tempCanvas.height = height;
+                tempCtx.drawImage(img, x, y, width, height, 0, 0, width, height);
+                const data = tempCtx.getImageData(0, 0, width, height).data;
+                let r = 0, g = 0, b = 0;
+                for (let i = 0; i < data.length; i += 4) {
+                    r += data[i];
+                    g += data[i+1];
+                    b += data[i+2];
+                }
+                const count = data.length / 4;
+                return `rgb(${Math.round(r/count)}, ${Math.round(g/count)}, ${Math.round(b/count)})`;
+            }
+            let counterType = "normal";
+
+            let counter = 0;
+            artPieces.forEach((piece, index) => {
+                if (counter < 2) {
+                    const img = createArtPiece(piece, counterType === "normal");
+                    gallery.appendChild(img);
+                    counter++;
+                } else {
+                    counter = 0;
+                    counterType = counterType === "normal" ? "reverse" : "normal";
+                    const img = createArtPiece(piece, counterType === "normal");
+                    gallery.appendChild(img);
+                    counter++;
+                }
+            });
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+        });
+       
+    </script>
+</body>
+</html>

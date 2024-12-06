@@ -8,12 +8,13 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            min-height: 100%;
             font-family: "Futura";
             background-color: #000000;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            
+            font-family: "Futura";
         }
 
         .header {
@@ -227,6 +228,62 @@
             overflow: hidden;
             border: 3px solid white;
         }
+        .footer {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to top, black, transparent);
+            transition: transform 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 50;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+        }
+
+
+        .footer-column {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+
+        .footer-column h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+
+        .footer-column input,
+        .footer-column button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
         
         /* makes 2 equal columns */
         .column {
@@ -278,7 +335,7 @@
         </a>
         </div>
         <div class = "about">
-        <a href = "about.html">
+        <a href = "about2.html">
             <img src = "ui_images/about.webp" alt = "About"> 
         </a>
             </div>
@@ -354,6 +411,28 @@
         <div id="favtitle" style = "font-size: 18pt;"></div><div style = "font-size: 18pt"> Favorites </div>
        <br>
         Van Gogh [insert mini pic of favorited image that hyperlinks to image?]
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <input type="email" placeholder="Enter your email">
+                <button>Subscribe</button>
+            </div>
+            <div class="footer-column">
+                <h3>Founders</h3>
+                <p> blah blah blah </p>
+                <p> blah blah blah</p>
+                <a href="about2.html"><em>About Us</em></a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                <li>Email: twilcher@usc.edu</li>
+                <li>Phone: blah blah blah</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     
