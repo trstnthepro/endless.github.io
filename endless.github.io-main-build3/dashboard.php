@@ -205,7 +205,7 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
         });
     });
 
-    
+
     // Profile image upload handler
     const imageUploadInput = document.getElementById('imageUpload');
     const profileImage = document.getElementById('profileImage');
