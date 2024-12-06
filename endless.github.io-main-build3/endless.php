@@ -1,4 +1,16 @@
 <?php
+// Start the session to track user login status
+session_start();
+
+// Function to check if the user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']);
+}
+
+// Define the redirect URLs
+$loginPage = 'login.php';
+$dashboardPage = 'dashboard.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $host = "twilcher.webdev.iyaserver.com";
     $userid = "twilcher_ally_endless";
