@@ -1,3 +1,42 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $host = "twilcher.webdev.iyaserver.com";
+    $userid = "twilcher_ally_endless";
+    $userpw = "VanGogh12!";
+    $db = "twilcher_endless";
+
+    $mysql = new mysqli($host, $userid, $userpw, $db);
+
+    if ($mysql->connect_errno) {
+        echo json_encode(['error' => "Database connection error: " . $mysql->connect_error, 'success' => false]);
+        echo "<script>console.log($mysql->connect_error)</script>";
+        exit();
+    }
+
+    $email = $mysql->real_escape_string($_POST["email"]);
+
+    // Check if the email already exists
+    $sql_check = "SELECT * FROM emails WHERE email = '$email'";
+    $result = $mysql->query($sql_check);
+
+    if ($result->num_rows > 0) {
+        echo json_encode(['error' => "That email has already been used. Please close and reopen the popup to retry.", 'success' => false]);
+        exit();
+    }
+
+    // Insert the email into the database
+    $sql_insert = "INSERT INTO emails (email) VALUES ('$email')";
+    if (!$mysql->query($sql_insert)) {
+        echo json_encode(['error' => "Database error: " . $mysql->error, 'success' => false]);
+        exit();
+    }
+
+    echo json_encode(['success' => true]);
+//                echo "<p style='color: azure'> success</p>";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +44,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Endless Art Gallery</title>
     <link rel="stylesheet" href="endless.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+            font-family: 'Futura', sans-serif;
+            color: white;
+        }
+
+        form {
+            width: 500px;
+            margin: auto;
+        }
+
+        .email-catch {
+            color: rgb(219, 219, 219);
+        }
+
+        .icon-container {
+            width: 51px;
+            height: 51px;
+            background-color: rgb(18, 18, 18, 0.98);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 4px 3px rgb(219, 219, 219, 0.25);
+            position: fixed;
+            bottom: 75px;
+            right: 75px;
+            z-index: 5;
+            cursor: pointer;
+        }
+
+        .icon-symbol {
+            opacity: 0.75;
+            transition: opacity 0.3s ease;
+        }
+
+        .icon-symbol:hover {
+            opacity: 1;
+        }
+
+        .join-newsletter {
+            width: 379px;
+            height: 51px;
+            background-color: rgb(18, 18, 18, 1);
+            border-radius: 23px;
+            z-index: 1;
+            position: fixed;
+            bottom: 75px;
+            right: 75px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .join-newsletter p {
+            margin: 11px;
+        }
+
+        .icon-container:hover + .join-newsletter {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pop-up {
+            width: 752px;
+            height: 337px;
+            background-color: rgba(18, 18, 18, 0.9);
+            border-radius: 23px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+            transition: opacity 0.5s ease;
+        }
+
+        .pop-up.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pop-up .icon-container {
+            position: relative;
+            top: 0;
+            left: 0;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pop-up-text {
+            margin-top: 20px;
+        }
+
+        #email-input-box {
+            width: 515px;
+            height: 51px;
+            background-color: rgba(18, 18, 18, 0.98);
+            color: rgba(219, 219, 219, 0.75);
+            border-radius: 23px;
+            padding-left: 20px;
+            font-family: 'Futura', sans-serif;
+            z-index: 1;
+        }
+
+        #join-now {
+            font-family: 'Futura', sans-serif;
+            width: 116px;
+            height: 36px;
+            border-radius: 23px;
+            background-color: rgba(18, 18, 18, 0.98);
+            box-shadow: 0 0 4px 3px rgba(219, 219, 219, 0.25);
+            color: rgba(219, 219, 219, 1);
+            z-index: 5;
+            position: relative;
+            bottom: 47px;
+            left: 225px;
+        }
+
+        #join-now:hover {
+            background-color: rgba(219, 219, 219, 0.98);
+            color: rgba(18, 18, 18, 0.98);
+        }
+
+        .exit {
+            top: 20px;
+            right: 20px;
+            position: absolute;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <header class="header">
@@ -14,7 +192,7 @@
 
     <a href="endless.php" class="logo"></a>
 
-    <a href="profile.php" class="profile-icon"></a>
+    <a href="dashboard.php" class="profile-icon"></a>
 </header>
 
 <div class="menu-overlay">
@@ -55,11 +233,23 @@
         include 'config.php';
 
         try {
+            $servername = "webdev.iyaserver.com";
+            $username = "twilcher";
+            $password = "AcadDev_Wilcher_6801994716";
+            $dbname = "twilcher_endless";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $conn->set_charset("utf8mb4");
             $sql = "SELECT a.piece_id, a.piece_name, a.piece_year, a.piece_description, 
            a.medium_type, a.web_filename, a.full_filename,
            p.fname, p.lname
     FROM artworks a
-    LEFT JOIN people p ON a.person_id = p.PID
+    LEFT JOIN artists p ON a.person_id = p.PID
     ORDER BY a.piece_id ASC";
 
             $result = $conn->query($sql);
@@ -109,6 +299,39 @@
 <div id="closeButton" class="close-button">✕</div>
 
 <canvas id="backgroundCanvas"></canvas>
+
+<div class="email-catch">
+    <div class="floating-icons">
+        <div class="icon-container" id="icon">
+            <div class="icon-symbol">
+                <img src="ui_images/newsletter_symbol.png" alt="Newsletter Icon">
+            </div>
+        </div>
+        <div class="join-newsletter">
+            <p>Join our newsletter...</p>
+        </div>
+    </div>
+
+    <div class="pop-up" id="pop-up">
+        <div class="icon-container">
+            <div class="icon-symbol">
+                <img src="ui_images/newsletter_symbol.png" alt="Pop-up Icon">
+            </div>
+        </div>
+        <div class="pop-up-text">
+            <h1>Join the ENDLESS.AI newsletter</h1>
+            <p>for updates & daily inspiration</p>
+        </div>
+        <div class="email-input">
+            <form id="newsletter-form">
+                <input type="email" name="email" placeholder="yourname@email.com" id="email-input-box" required>
+                <input type="submit" value="Join now!" id="join-now">
+            </form>
+        </div>
+        <div class="exit" id="xButton">X</div>
+    </div>
+</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -263,6 +486,87 @@
             }
         });
     });
+
+    $(document).ready(function() {
+        const popup = $("#pop-up");
+        const originalPopupContent = popup.html();
+
+        $("#icon").on("click", function() {
+            popup.html(originalPopupContent);
+            popup.addClass("visible");
+
+            $("#xButton").on("click", closePopup);
+
+            // Handle form submission
+            $("#newsletter-form").on("submit", function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: window.location.href,
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log("in success")
+                        console.log(response)
+                        if (response.success) {
+                            popup.html(`
+                                <div class='icon-container'>
+                                    <div class='icon-symbol'>
+                                        <img src="newsletter_symbol.png" alt="Pop-up Icon">
+                                    </div>
+                                </div>
+                                <div class='pop-up-text'>
+                                    <h1>Thanks for joining!</h1>
+                                    <p>You'll hear from us soon.</p>
+                                </div>
+                                <div class='exit' id='xButton'>X</div>
+                            `);
+
+                            $("#xButton").on("click", closePopup);
+                        } else {
+                            popup.html(`
+                                <div class='icon-container'>
+                                    <div class='icon-symbol'>
+                                        <img src="newsletter_symbol.png" alt="Pop-up Icon">
+                                    </div>
+                                </div>
+                                <div class='pop-up-text'>
+                                    <h1>An error occurred.</h1>
+                                    <p>${response.error}</p>
+                                </div>
+                                <div class='exit' id='xButton'>X</div>
+                            `);
+                            // alert("Error: " + response.error);
+                            $("#xButton").on("click", closePopup);
+                        }
+                    },
+                    error: function(error) {
+                        popup.html(`
+                                <div class='icon-container'>
+                                    <div class='icon-symbol'>
+                                        <img src="newsletter_symbol.png" alt="Pop-up Icon">
+                                    </div>
+                                </div>
+                                <div class='pop-up-text'>
+                                    <h1>An error occurred.</h1>
+                                    <p>This email has already been used to sign up for our newsletter. Please exit and use a different email to sign up.</p>
+                                </div>
+                                <div class='exit' id='xButton'>X</div>
+                            `);
+                        $("#xButton").on("click", closePopup);
+                    }
+                });
+            });
+        });
+
+        function closePopup() {
+            popup.removeClass("visible");
+        }
+
+        $("#xButton").on("click", closePopup);
+    });
 </script>
+
 </body>
 </html>
