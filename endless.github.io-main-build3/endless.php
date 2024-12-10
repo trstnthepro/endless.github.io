@@ -1,4 +1,5 @@
 <?php
+
 // Start the session to track user login status
 session_start();
 
@@ -205,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <a href="endless.php" class="logo"></a>
 
-    <a href="profile.php" class="profile-icon"></a>
+    <a href="dashboard.php" class="profile-icon"></a>
 </header>
 
 <div class="menu-overlay">
@@ -266,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            a.medium_type, a.web_filename, a.full_filename,
            p.fname, p.lname
     FROM artworks a
-    LEFT JOIN people p ON a.person_id = p.PID
+    LEFT JOIN artists p ON a.person_id = p.PID
     ORDER BY a.piece_id ASC";
 
             $result = $conn->query($sql);
