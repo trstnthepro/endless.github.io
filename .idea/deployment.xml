@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< Updated upstream
-  <component name="PublishConfigData" serverName="server ftps" filePermissions="493" folderPermissions="493" remoteFilesAllowedToDisappearOnAutoupload="false">
-    <serverData>
-      <paths name="server ftps">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/public_html" local="$PROJECT_DIR$" web="/" />
-=======
-  <component name="PublishConfigData" serverName="Acad276Server" filePermissions="493" folderPermissions="493" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="Acad276Server" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="Acad276Server">
         <serverdata>
           <mappings>
-            <mapping deploy="/public_html/acad276/endless" local="$PROJECT_DIR$" web="/" />
->>>>>>> Stashed changes
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
