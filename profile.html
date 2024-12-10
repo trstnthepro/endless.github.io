@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless Art Gallery</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: "Futura";
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            
+            font-family: "Futura";
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            align-content: center;
+        }
+        .logo a{
+            text-decoration: none;
+            color: white;
+        }
+
+
+        .gallery-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 0;
+        }
+
+        #gallery {
+            width: 80%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 100px;
+        }
+
+        #gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fade-overlay-top, .fade-overlay-bottom {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 100px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .fade-overlay-top {
+            top: 60px;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .fade-overlay-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .art-piece {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .horizontal-scroll-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden; /* Prevent vertical scrolling */
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .horizontal-scroll-panel.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .art-info {
+            flex: 0 0 100%;
+            display: flex;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .art-info-content {
+            width: 60%;
+            color: #ffffff;
+            padding-right: 40px;
+        }
+
+        .art-info-image {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .art-info-image img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .art-info h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .art-info p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .close-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: #ffffff;
+            cursor: pointer;
+            z-index: 30;
+            display: none;
+        }
+
+        .fade-overlay-left, .fade-overlay-right {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        .fade-overlay-left {
+            left: 0;
+            background: linear-gradient(to right, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .fade-overlay-right {
+            right: 0;
+            background: linear-gradient(to left, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        #backgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        body{
+            color: white;;
+        }
+        #userProfile {
+            width: 80%;
+            margin-top: 5%;
+            margin-left: 10%;
+            display: flex;
+            padding: 2%;
+            
+        }
+        .profile img {
+            position: absolute;
+            right: 50px;
+            top: 25%;
+            width: 30px;
+        }
+        .about img{
+            position: absolute;
+            right: 90px;
+            top: 28%;
+            width: 25px;
+        }
+        #userProfile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%; 
+            overflow: hidden;
+            border: 3px solid white;
+        }
+        .footer {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to top, black, transparent);
+            transition: transform 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 50;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+        }
+
+
+        .footer-column {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+
+        .footer-column h3 {
+            border-bottom: 2px solid white;
+            padding-bottom: 10px;
+        }
+
+
+        .footer-column input,
+        .footer-column button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+
+        .footer-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        
+        /* makes 2 equal columns */
+        .column {
+            flex: 1; /* Use flex to distribute space */
+            padding: 5px;
+        }
+        .row {
+            margin-bottom: 20px;
+        }
+        form {
+            border-radius: 10px;
+            padding: 40px; 
+            padding-left: 10%;
+
+        }
+        #upload {
+            margin-top: 10px;
+            padding: 0;
+        }
+        #favorites{
+            width: 60%;
+            margin-left: 20%;
+            text-align: center;
+            margin-top: 5%;
+        }
+
+        /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 700px) {
+            #userProfile {
+                flex-direction: column; /* Stack columns vertically */
+                margin-bottom: 15%;
+                text-align: center;
+            }
+
+            .column {
+                width: 100%; /* Full width on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+        <a href = "endless.html">ENDLESS.AI </a> 
+        </div>
+        <div class = "profile">
+        <a href = "profile.html">
+            <img src = "ui_images/profile_image.png" alt = "Profile"> 
+        </a>
+        </div>
+        <div class = "about">
+        <a href = "about2.html">
+            <img src = "ui_images/about.webp" alt = "About"> 
+        </a>
+            </div>
+    </div>
+
+    <h2 style = "color: white; text-align: center">Profile</h2>
+    <div id="userProfile">
+        <div class="column" style = "text-align: center">
+            <a>
+                <img id = "profileImage" src="ui_images/profile_image.png" alt="User Profile Picture">
+            </a>
+            <form class="imageUploadForm" id = "upload">
+                <input style = "margin-left: 80px" type="file" id="imageUpload" accept="image/*" required><br>
+            </form>
+        
+            <script>
+                // Get the elements
+                const imageUploadInput = document.getElementById('imageUpload');
+                const profileImage = document.getElementById('profileImage'); // Image in userProfile
+                const headerProfileImage = document.getElementById('headerProfileImage'); // Get the header image element
+            
+                // Listen for file selection
+                imageUploadInput.addEventListener('change', function () {
+                const file = imageUploadInput.files[0]; // Get the uploaded file
+                if (file) {
+                    // Show a confirmation dialog
+                    const confirmChange = confirm("Are you sure you want to change your profile picture?");
+                    if (confirmChange) {
+                        const reader = new FileReader(); // Create a FileReader object
+
+                        // Define the onload event for the reader
+                        reader.onload = function (e) {
+                            profileImage.src = e.target.result; // Update the profile image
+                        };
+
+                        reader.readAsDataURL(file); // Read the file as a data URL
+                    } else {
+                        // Reset the input if the user cancels
+                        imageUploadInput.value = ''; // Clear the file input
+                    }
+                }
+            });
+            </script>
+        </div>
+
+        <div class="column">
+            <h2>Profile</h2>
+            <span id="displayName"><h1 id = "userFullName">firstname + lastname</h1></span> <!-- Display user name here -->
+            <p>Bio: <span id="userBio">This is a sample bio.</span></p> <!-- Display bio here -->
+        
+            <!-- Edit Profile Button -->
+            <button id="editProfileButton">Edit Profile</button>
+            
+            <!-- Profile Form (Initially Hidden) -->
+            <form id="profileEditForm" style="display: none;">
+                <label>First Name</label><br>
+                <input name="firstname" id = "firstNameInput" type="text" class="row"><br>
+                
+                <label>Last Name</label><br>
+                <input name="lastname" id = "lastNameInput" type="text" class="row"><br>
+                
+                <label>About Me</label><br>
+                <textarea name="bio" id = "bioInput" class="fill"></textarea><br>  
+                <br>
+                
+                <input type="submit" value="Save Changes">
+            </form>
+        </div>
+        
+    </div>
+    <hr style = "color: white; width: 80%">
+    <div id="favorites">
+        <div id="favtitle" style = "font-size: 18pt;"></div><div style = "font-size: 18pt"> Favorites </div>
+       <br>
+        Van Gogh [insert mini pic of favorited image that hyperlinks to image?]
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <input type="email" placeholder="Enter your email">
+                <button>Subscribe</button>
+            </div>
+            <div class="footer-column">
+                <h3>Founders</h3>
+                <p> blah blah blah </p>
+                <p> blah blah blah</p>
+                <a href="about2.html"><em>About Us</em></a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                <li>Email: twilcher@usc.edu</li>
+                <li>Phone: blah blah blah</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+<script>
+    // Get the elements
+const editProfileButton = document.getElementById('editProfileButton');
+const profileEditForm = document.getElementById('profileEditForm');
+const userFullName = document.getElementById('userFullName');
+const userBio = document.getElementById('userBio');
+
+// Add event listener to the Edit Profile button
+editProfileButton.addEventListener('click', function () {
+    // Toggle the form visibility
+    if (profileEditForm.style.display === 'none') {
+        profileEditForm.style.display = 'block'; // Show the form
+    } else {
+        profileEditForm.style.display = 'none'; // Hide the form
+    }
+});
+
+// Add event listener for form submission
+profileEditForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the values from the inputs
+    const firstName = document.getElementById('firstNameInput').value;
+    const lastName = document.getElementById('lastNameInput').value;
+    const bio = document.getElementById('bioInput').value;
+    const favtitle = document.getElementById('favtitle');
+
+    // Update the displayed information
+    userFullName.textContent = `${firstName} ${lastName}`;
+    userBio.textContent = bio;
+    favtitle.textContent = `${firstName} ${lastName}`;
+
+    // Hide the form after saving changes
+    profileEditForm.style.display = 'none';
+
+    // Optionally clear the input fields
+    document.getElementById('firstNameInput').value = '';
+    document.getElementById('lastNameInput').value = '';
+    document.getElementById('bioInput').value = '';
+});
+</script>
+</html>

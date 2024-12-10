@@ -1,4 +1,17 @@
 <?php
+
+// Start the session to track user login status
+session_start();
+
+// Function to check if the user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']);
+}
+
+// Define the redirect URLs
+$loginPage = 'login.php';
+$dashboardPage = 'dashboard.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $host = "twilcher.webdev.iyaserver.com";
     $userid = "twilcher_ally_endless";
@@ -44,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Endless Art Gallery</title>
     <link rel="stylesheet" href="endless.css">
+    <link rel="stylesheet" href="https://use.typekit.net/tpx3vbc.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
@@ -206,10 +220,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="menu-item">
             <span class="menu-number">02</span>
-            <a href="#" class="menu-link">Favorites</a>
+            <a href="#" class="menu-link">About</a>
         </div>
         <div class="menu-item">
             <span class="menu-number">03</span>
+            <a href="#" class="menu-link">Favorites</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">04</span>
             <a href="#" class="menu-link">Moodboards</a>
         </div>
     </nav>
@@ -220,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="searchInput" name="query"
                placeholder="ex. The Starry Night, Mona Lisa, Guernica, etc..."
                autocomplete="off">
-        <button type="submit" id="searchButton" class="search-icon"></button>
+        <button type="submit" id="searchButton" class="search-icon" style="background: url('ui_images/Search.png') no-repeat; right: 0.50rem"></button>
     </form>
     <div id="searchResults" class="search-results"></div>
 </div>
@@ -304,7 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="floating-icons">
         <div class="icon-container" id="icon">
             <div class="icon-symbol">
-                <img src="ui_images/newsletter_symbol.png" alt="Newsletter Icon">
+                <img src="newsletter_symbol.png" alt="Newsletter Icon">
             </div>
         </div>
         <div class="join-newsletter">
@@ -315,7 +333,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="pop-up" id="pop-up">
         <div class="icon-container">
             <div class="icon-symbol">
-                <img src="ui_images/newsletter_symbol.png" alt="Pop-up Icon">
+                <img src="newsletter_symbol.png" alt="Pop-up Icon">
             </div>
         </div>
         <div class="pop-up-text">

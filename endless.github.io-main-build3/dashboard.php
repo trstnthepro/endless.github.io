@@ -26,7 +26,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $userData = $result->fetch_assoc();
 
-
 if (!$userData) {
     // Handle the case where the user is not found in the database
     echo "User not found!";
@@ -56,17 +55,40 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
 
     <a href="endless.php" class="logo"></a>
 
+
     <a href="logout.php" class="logout_button">Logout</a>
 </header>
-<h2 class="profile-header">Profile</h2>
+
+<div class="menu-overlay">
+    <button class="menu-close">
+        <img src="ui_images/menuOpen.png" alt="Close menu">
+    </button>
+    <nav class="menu-items">
+        <div class="menu-item">
+            <span class="menu-number">01</span>
+            <a href="#" class="menu-link active">Home</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">02</span>
+            <a href="#" class="menu-link">Favorites</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">03</span>
+            <a href="#" class="menu-link">Moodboards</a>
+        </div>
+    </nav>
+</div>
+
 <div class="profile-container">
+    <h2 class="profile-header">Profile</h2>
+
     <div id="userProfile">
         <div class="profile-column center">
-            <a>
+
                 <img id="profileImage" src="ui_images/profile_image.png" alt="User Profile Picture">
-            </a>
+
             <form class="profile-form" id="upload">
-                <input type="file" id="imageUpload" accept="image/*" required>
+                <input type="file" class="imageUpload" accept="image/*" required>
             </form>
         </div>
 
@@ -78,11 +100,14 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
             <button id="editProfileButton" class="profile-edit-button">Edit Profile</button>
 
             <form id="profileEditForm" class="profile-form" method="POST" action="update_profile.php" style="display: none;">
+
                 <label>First Name</label><br>
                 <input name="firstname" id="firstNameInput" type="text" value="<?= htmlspecialchars($userData['first_name']) ?>"><br>
 
+
                 <label>Last Name</label><br>
                 <input name="lastname" id="lastNameInput" type="text" value="<?= htmlspecialchars($userData['last_name']) ?>"><br>
+
 
                 <label>About Me</label><br>
                 <textarea name="bio" id="bioInput"><?= htmlspecialchars($userData['bio']) ?></textarea><br>
@@ -93,7 +118,7 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
     </div>
 
 </div>
-
+  
 <hr class="profile-divider">
 
 <div id="favorites">
@@ -104,25 +129,84 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
 </div>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.querySelector('.menu-button');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const menuClose = document.querySelector('.menu-close');
+
+        // Menu functionality
+        menuButton.addEventListener('click', function() {
+            menuOverlay.classList.add('active');
+        });
+
+        menuClose.addEventListener('click', function() {
+            menuOverlay.classList.remove('active');
+        });
+
+        // Close button handler for horizontal panel
+        closeButton.addEventListener('click', function() {
+            horizontalPanel.classList.remove('active');
+            closeButton.style.display = 'none';
+        });
+
+        // Close horizontal panel when clicking outside
+        horizontalPanel.addEventListener('click', function(e) {
+            if (e.target === horizontalPanel) {
+                horizontalPanel.classList.remove('active');
+                closeButton.style.display = 'none';
+            }
+        });
+
+        // Handle keyboard events (ESC to close panel)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && horizontalPanel.classList.contains('active')) {
+                horizontalPanel.classList.remove('active');
+                closeButton.style.display = 'none';
+            }
+        });
+
+        // Handle image action buttons (Favorite, Download, Bookmark)
+        gallery.addEventListener('click', function(e) {
+            const actionIcon = e.target.closest('.action-icon');
+            if (actionIcon) {
+                e.stopPropagation(); // Prevent opening the horizontal panel
+                const container = actionIcon.closest('.art-piece-container');
+                const pieceId = container.dataset.id;
+
+                if (actionIcon.classList.contains('favorite-icon')) {
+                    // Handle favorite action
+                    console.log('Favorite clicked for piece:', pieceId);
+                } else if (actionIcon.classList.contains('share-icon')) {
+                    // Handle download action
+                    console.log('Download clicked for piece:', pieceId);
+                } else if (actionIcon.classList.contains('info-icon')) {
+                    // Handle bookmark action
+                    console.log('Bookmark clicked for piece:', pieceId);
+                }
+            }
+        });
+    });
+
     // Profile image upload handler
     const imageUploadInput = document.getElementById('imageUpload');
     const profileImage = document.getElementById('profileImage');
 
-    imageUploadInput.addEventListener('change', function () {
-        const file = imageUploadInput.files[0];
-        if (file) {
-            const confirmChange = confirm("Are you sure you want to change your profile picture?");
-            if (confirmChange) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    profileImage.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                imageUploadInput.value = '';
-            }
-        }
-    });
+    // imageUploadInput.addEventListener('change', function () {
+    //     const file = imageUploadInput.files[0];
+    //     if (file) {
+    //         const confirmChange = confirm("Are you sure you want to change your profile picture?");
+    //         if (confirmChange) {
+    //             const reader = new FileReader();
+    //             reader.onload = function (e) {
+    //                 profileImage.src = e.target.result;
+    //             };
+    //             reader.readAsDataURL(file);
+    //         } else {
+    //             imageUploadInput.value = '';
+    //         }
+    //     }
+    // });
 
     // Profile edit form handler
     const editProfileButton = document.getElementById('editProfileButton');
