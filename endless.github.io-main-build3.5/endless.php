@@ -192,8 +192,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <a href="endless.php" class="logo"></a>
 
-    <a href="about.html" class="about-icon" style="background: url('ui_images/about.webp') no-repeat center; background-size: contain; width: 2rem; height: 2rem; position: fixed; right: 10rem; margin-top: 0rem; display: flex; justify-content: center; align-items: center; flex-shrink: 0; border: none; cursor: pointer; padding: 0; z-index: 10; transition: transform 350ms ease-in;"></a>
-
     <a href="dashboard.php" class="profile-icon"></a>
 </header>
 
@@ -208,10 +206,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="menu-item">
             <span class="menu-number">02</span>
-            <a href="#" class="menu-link">Favorites</a>
+            <a href="about.html" class="menu-link">About</a>
         </div>
         <div class="menu-item">
             <span class="menu-number">03</span>
+            <a href="#" class="menu-link">Favorites</a>
+        </div>
+        <div class="menu-item">
+            <span class="menu-number">04</span>
             <a href="#" class="menu-link">Moodboards</a>
         </div>
     </nav>
@@ -222,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="searchInput" name="query"
                placeholder="ex. The Starry Night, Mona Lisa, Guernica, etc..."
                autocomplete="off">
-        <button type="submit" id="searchButton" class="search-icon"></button>
+        <button type="submit" id="searchButton" class="search-icon" style="background: url('ui_images/Search.png') no-repeat; right: 0.50rem"></button>
     </form>
     <div id="searchResults" class="search-results"></div>
 </div>

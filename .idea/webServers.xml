@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="6cbe3f9a-ff96-44eb-8e55-d70b1c2fef9c" name="Acad276Server" url="http://altamush.webdev.iyaserver.com">
-        <fileTransfer accessType="FTPS" host="webdev.iyaserver.com" port="21">
+        <fileTransfer rootFolder="/public_html/acad276/endless/" accessType="FTPS" host="webdev.iyaserver.com" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
