@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-
 // Redirect to login if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
 
 // Database configuration
 $host = "webdev.iyaserver.com";
@@ -15,13 +13,11 @@ $userid = "twilcher_hudson_endless";
 $userpw = "VanGogh12!";
 $db = "twilcher_endless";
 
-
 $pdo = new mysqli($host, $userid, $userpw, $db);
 if ($pdo->connect_errno) {
     echo "Database connection error: " . htmlspecialchars($pdo->connect_error);
     exit();
 }
-
 
 $userId = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT username, email, first_name, last_name, bio, profile_picture FROM users WHERE id = ?");
@@ -30,21 +26,16 @@ $stmt->execute();
 $result = $stmt->get_result();
 $userData = $result->fetch_assoc();
 
-
-
-
 if (!$userData) {
     // Handle the case where the user is not found in the database
     echo "User not found!";
     exit();
 }
 
-
 $userFullName = htmlspecialchars($userData['first_name'] . ' ' . $userData['last_name']);
 $userEmail = htmlspecialchars($userData['email']);
 $userBio = htmlspecialchars($userData['bio']);
 $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userData['profile_picture']) : 'ui_images/default_profile_icon.png';
-
 
 ?>
 <!DOCTYPE html>
@@ -57,12 +48,10 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
 </head>
 <body>
 
-
 <header class="header">
     <button class="menu-button">
         <span class="hamburger-icon"></span>
     </button>
-
 
     <a href="endless.php" class="logo"></a>
 
@@ -103,13 +92,10 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
             </form>
         </div>
 
-
         <div class="profile-column">
             <span id="displayName"><h1 id="userFullName"><?= $userFullName ?></h1></span>
             <p>Email: <span id="userEmail"><?= $userEmail ?></span></p>
             <p>Bio: <span id="userBio"><?= $userBio ?></span></p>
-
-
 
             <button id="editProfileButton" class="profile-edit-button">Edit Profile</button>
 
@@ -126,16 +112,14 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
                 <label>About Me</label><br>
                 <textarea name="bio" id="bioInput"><?= htmlspecialchars($userData['bio']) ?></textarea><br>
 
-
                 <input type="submit" value="Save Changes" class="profile-edit-button">
             </form>
         </div>
     </div>
+
 </div>
-
-
+  
 <hr class="profile-divider">
-
 
 <div id="favorites">
     <div id="favtitle"></div>
@@ -143,7 +127,6 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
     <br>
     <p>Van Gogh [insert mini pic of favorited image that hyperlinks to image]</p>
 </div>
-
 
 <script>
 
@@ -205,11 +188,9 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
         });
     });
 
-
     // Profile image upload handler
     const imageUploadInput = document.getElementById('imageUpload');
     const profileImage = document.getElementById('profileImage');
-
 
     // imageUploadInput.addEventListener('change', function () {
     //     const file = imageUploadInput.files[0];
@@ -234,17 +215,14 @@ $profilePicture = !empty($userData['profile_picture']) ? htmlspecialchars($userD
     const userBio = document.getElementById('userBio');
     const favtitle = document.getElementById('favtitle');
 
-
     editProfileButton.addEventListener('click', function () {
         profileEditForm.style.display = profileEditForm.style.display === 'none' ? 'block' : 'none';
     });
-
 
     profileEditForm.addEventListener('submit', function () {
         // Let the form submit naturally to update_profile.php
         console.log("Form is being submitted to update_profile.php...");
     });
-
 
 </script>
 </body>
