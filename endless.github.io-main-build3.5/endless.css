@@ -953,3 +953,130 @@ button[type="submit"]:hover {
         height: 0.875rem;
     }
 }
+
+
+/* New Test - Alti */
+.artwork-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: none;
+    overflow-x: hidden;
+}
+
+.artwork-modal.active {
+    display: block;
+}
+
+.modal-close {
+    position: fixed;
+    top: 4.4rem;
+    left: 12.56rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background: url('ui_images/menuOpen.png') no-repeat center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1010;
+    transition: transform 350ms ease-in;
+}
+
+.modal-close:hover {
+    transform: scale(1.1);
+}
+
+.horizontal-scroll-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.artwork-content {
+    display: inline-flex;
+    margin-top: 2rem;
+    padding: 10rem 4rem 4rem 0rem;
+}
+
+.artwork-section, .artist-section {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.artwork-image {
+    margin-left: 0rem;
+    margin-right: 5rem;
+    width: 32.5625rem;
+    height: 27.8125rem;
+}
+
+.artwork-info, .artist-info {
+    max-width: 32.5625rem;
+    margin-right: 15rem;
+    text-align: left;
+    white-space: normal;
+}
+
+.artwork-title, .artist-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 45px;
+    color: white;
+    margin: 0 0 1rem 0;
+    font-weight: normal;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.artwork-description, .artist-bio {
+    font-family: Futura;
+    font-size: 1.20rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.125rem;
+    width: 32.5625rem;
+}
+
+.artist-image {
+    margin-right: 5rem;
+    width: 32.5625rem;
+    height: 27.8125rem;
+    object-fit: cover;
+}
+
+.fade-overlay-left,
+.fade-overlay-right {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 150px;
+    pointer-events: none;
+    z-index: 1005;
+}
+
+.fade-overlay-left {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.95), transparent);
+}
+
+.fade-overlay-right {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.95), transparent);
+}

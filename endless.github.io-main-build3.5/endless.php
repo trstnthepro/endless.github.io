@@ -572,5 +572,127 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 </script>
 
+
+
+
+<div class="artwork-modal">
+    <button class="modal-close">
+        <img src="ui_images/menuOpen.png" alt="Close modal">
+    </button>
+    <div class="fade-overlay-left"></div>
+    <div class="fade-overlay-right"></div>
+
+    <div class="horizontal-scroll-container">
+        <!-- Original sections -->
+        <div class="artwork-content" style="padding-left: 12.56rem;">
+            <div class="artwork-section">
+                <img src="/api/placeholder/400/400" alt="Artwork" class="artwork-image">
+                <div class="artwork-info">
+                    <h1 class="artwork-title">name of art piece...</h1>
+                    <p class="artwork-description">
+                        Lorem ipsum dolor amet, consectetuer adipiscing elit. Facilisis ipsum eu pellentesque proin dis nisi turpis. Porttitor posuere iaculis diam phasellus primis pellentesque.
+                        <br><br>
+                        Ut egestas ad a velit ridiculus nisi torquent sociosqu finibus. Ut sed blandit dictumst vel eros sed metus amet. Euismod elit fames in a elit rhoncus dolor. Erat sollicitudin porta habitant gravida donec vestibulum.
+                        <br><br>
+                        Nec mi faucibus porttitor nulla ridiculus malesuada dolor felis. Phasellus sapien mauris proin maximus blandit vulputate etiam massa.
+                    </p>
+                </div>
+            </div>
+            <div class="artist-section">
+                <img src="/api/placeholder/400/400" alt="Artist" class="artist-image">
+                <div class="artist-info">
+                    <h2 class="artist-name">name of artist...</h2>
+                    <p class="artist-bio">
+                        Lorem ipsum dolor amet, consectetuer adipiscing elit. Facilisis ipsum eu pellentesque proin dis nisi turpis. Porttitor posuere iaculis diam phasellus primis pellentesque.
+                        <br><br>
+                        Ut egestas ad a velit ridiculus nisi torquent sociosqu finibus. Ut sed blandit dictumst vel eros sed metus amet. Euismod elit fames in a elit rhoncus dolor. Erat sollicitudin porta habitant gravida donec vestibulum.
+                        <br><br>
+                        Nec mi faucibus porttitor nulla ridiculus malesuada dolor felis. Phasellus sapien mauris proin maximus blandit vulputate etiam massa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.querySelector('.artwork-modal');
+        const closeButton = document.querySelector('.modal-close');
+        const scrollContainer = document.querySelector('.horizontal-scroll-container');
+        const originalContent = document.querySelector('.artwork-content');
+
+        // Gallery click handler - single unified version
+        const gallery = document.getElementById('gallery');
+        gallery.addEventListener('click', function(e) {
+            const artPiece = e.target.closest('.art-piece');
+            if (artPiece) {
+                const container = artPiece.closest('.art-piece-container');
+                const pieceId = container.dataset.id;
+
+                fetch(`get_artwork_details.php?id=${pieceId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        const [title, description, artistName, artistBio, artistPortrait] = data.split('|||');
+
+                        scrollContainer.innerHTML = '';
+
+                        const newContent = `
+                        <div class="artwork-content" style="padding-left: 12.56rem;">
+                            <div class="artwork-section">
+                                <img src="${artPiece.src}" alt="${title}" class="artwork-image">
+                                <div class="artwork-info">
+                                    <h1 class="artwork-title">${title}</h1>
+                                    <p class="artwork-description">${description || 'No description available'}</p>
+                                </div>
+                            </div>
+                            <div class="artist-section">
+                                <img src="${artistPortrait || '/api/placeholder/400/400'}" alt="Artist Portrait" class="artist-image">
+                                <div class="artist-info">
+                                    <h2 class="artist-name">${artistName || 'Unknown Artist'}</h2>
+                                    <p class="artist-bio">${artistBio || 'No artist biography available.'}</p>
+                                </div>
+                            </div>
+                        </div>`;
+
+                        scrollContainer.style.scrollBehavior = 'auto';
+                        scrollContainer.innerHTML = newContent;
+                        modal.classList.add('active');
+                        scrollContainer.scrollLeft = 0;
+                        scrollContainer.style.scrollBehavior = 'smooth'; // Reset for future scrolling
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+
+        function appendNewContent() {
+            const originalContent = document.querySelector('.artwork-content');
+            const clone = originalContent.cloneNode(true);
+            clone.style.paddingLeft = '';
+            scrollContainer.appendChild(clone);
+        }
+
+        scrollContainer.addEventListener('scroll', () => {
+            const scrollLeft = scrollContainer.scrollLeft;
+            const scrollWidth = scrollContainer.scrollWidth;
+            const containerWidth = scrollContainer.clientWidth;
+
+            if (scrollLeft + containerWidth > scrollWidth * 0.8) {
+                appendNewContent();
+            }
+        });
+
+        closeButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
