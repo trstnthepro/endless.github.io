@@ -75,7 +75,7 @@ session_start();
                 </div>
             </div>
 
-            <!-- Users Module (Disabled) -->
+            <!-- User behavior Module (Disabled) -->
             <div class="module-card disabled">
                 <div class="card-header">
                     <i class="fas fa-users"></i>
@@ -84,6 +84,23 @@ session_start();
                 <div class="card-body">
                     <p>Manage user accounts</p>
                     <span class="coming-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- Users behavior  -->
+            <div class="module-card active">
+                <div class="card-header">
+                    <i class="fas fa-users"></i>
+                    <h2>User Behavior</h2>
+                </div>
+                <div class="card-body">
+                    <p>View User Searches</p>
+                    <div class="card-actions">
+                        <a href="modules/user_behavior/user_behavior_visuals.php" class="btn btn-primary">
+                            <i class="fas fa-list"></i> View
+                        </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

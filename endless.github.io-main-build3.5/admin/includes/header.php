@@ -55,6 +55,12 @@ define('BASE_URL', '/acad276/Endless/endless.github.io-main-build3.5/admin');
                     <span>Users</span>
                 </a>
             </li>
+            <li>
+                <a href="../admin/user_behavior.php" class="nav-link">
+                    <i class="fas fa-userbehavior"></i>
+                    <span>User Behavior</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
