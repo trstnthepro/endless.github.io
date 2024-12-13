@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+// Rest of your existing PHP code...
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $host = "twilcher.webdev.iyaserver.com";
     $userid = "twilcher_ally_endless";
@@ -280,11 +283,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo '    <img src="' . htmlspecialchars($imagePath) . '" 
                  alt="' . htmlspecialchars($row['piece_name']) . '" 
                  class="art-piece">';
-                    echo '    <div class="image-actions">
-                    <img src="ui_images/Favorite.png" alt="Favorite" class="action-icon favorite-icon">
-                    <img src="ui_images/Download.png" alt="Download" class="action-icon share-icon">
-                    <img src="ui_images/Bookmark.png" alt="Bookmark" class="action-icon info-icon">
-                </div>';
+                    echo '    <div class="image-actions">';
+                    if (isset($_SESSION['user_id'])) {
+                        echo '<img src="ui_images/Favorite.png" alt="Favorite" class="action-icon favorite-icon">';
+                    } else {
+                        echo '<a href="login.php"><img src="ui_images/Favorite.png" alt="Favorite" class="action-icon"></a>';
+                    }
+                    echo '    </div>';
                     echo '</div>';
                 }
             } else {
@@ -357,9 +362,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const closeButton = document.getElementById('closeButton');
         const horizontalPanel = document.getElementById('horizontalPanel');
 
+        async function toggleFavorite(button, pieceId) {
+            const isFavorited = button.classList.contains('favorited');
+            const action = isFavorited ? 'remove' : 'add';
+
+            try {
+                const response = await fetch('update_favorites.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `piece_id=${pieceId}&action=${action}`
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    if (action === 'add') {
+                        button.classList.add('favorited');
+                        button.src = 'ui_images/Favorite_filled.png';
+                    } else {
+                        button.classList.remove('favorited');
+                        button.src = 'ui_images/Favorite.png';
+                    }
+                } else {
+                    if (data.error === 'Not logged in') {
+                        window.location.href = 'login.php';
+                    } else {
+                        alert('Error updating favorite status');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating favorite status');
+            }
+        }
+
         // Add click handler for art pieces
         gallery.addEventListener('click', function(e) {
+
+            const actionIcon = e.target.closest('.action-icon');
+            if (actionIcon) {
+                e.stopPropagation(); // Prevent opening the horizontal panel
+                const container = actionIcon.closest('.art-piece-container');
+                const pieceId = container.dataset.id;
+
+                if (actionIcon.classList.contains('favorite-icon')) {
+                    toggleFavorite(actionIcon, pieceId);
+                }
+            }
+
             const artPiece = e.target.closest('.art-piece');
+
             if (artPiece) {
                 const container = artPiece.closest('.art-piece-container');
                 const pieceId = container.dataset.id;
@@ -425,8 +478,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              class="art-piece">
                         <div class="image-actions">
                             <img src="ui_images/Favorite.png" alt="Favorite" class="action-icon favorite-icon">
-                            <img src="ui_images/Download.png" alt="Download" class="action-icon share-icon">
-                            <img src="ui_images/Bookmark.png" alt="Bookmark" class="action-icon info-icon">
                         </div>
                     </div>
                 `;
@@ -630,6 +681,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const closeButton = document.querySelector('.modal-close');
         const scrollContainer = document.querySelector('.horizontal-scroll-container');
         const originalContent = document.querySelector('.artwork-content');
+
+        // Add this after document.ready
+        function loadExistingFavorites() {
+            fetch('get_favorites.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.favorites) {
+                        data.favorites.forEach(pieceId => {
+                            const container = document.querySelector(`.art-piece-container[data-id="${pieceId}"]`);
+                            if (container) {
+                                const favoriteIcon = container.querySelector('.favorite-icon');
+                                favoriteIcon.classList.add('favorited');
+                                favoriteIcon.src = 'ui_images/Favorite_filled.png';
+                            }
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading favorites:', error));
+        }
+
+        loadExistingFavorites();
+
+
+// Call this function when the page loads
+        document.addEventListener('DOMContentLoaded', loadExistingFavorites);
 
         // Gallery click handler - single unified version
         const gallery = document.getElementById('gallery');
